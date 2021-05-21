@@ -1,0 +1,24 @@
+<%= render partial: 'static/errors', locals: {model: @post} %>
+
+<div class="text-center">
+    <h1><%= "New Post" %></h1>
+</div>
+<%= form_with(model: [@category, @post]) do |f| %>
+    <%= f.hidden_field :user_id, value: current_user.id %>
+    <%= f.label :title %>
+    <%= f.text_field :title, class: "form-control input-lg" %>
+   
+    <%= f.label :image %>
+    <%= f.file_field :image, class: "form-control input-lg" %>
+    
+    <%= f.label :link %>
+    <%= f.text_field :link, class: "form-control input-lg" %>
+    <%= f.label :content %>
+    <%= f.text_area :content, class: "form-control input-lg" %>
+    <% if @category %>
+        <%= f.hidden_field :category_id, value: @category.id %> 
+    <%else%>
+        <%= render partial: "fields_for", locals: {f: f}  %>
+    <%end %>
+    <%= f.submit "Create Post" %>
+<% end %>
